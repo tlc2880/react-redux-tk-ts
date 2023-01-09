@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ordered as icecreamOrdered } from "../icecream/icecreamSlice";
-///////////////////////////////////////////////////////
-// Part-A:
+/////////////////////////////////////////////////////
 type InitialState = {
   numOfCakes: number;
 };
@@ -17,8 +16,20 @@ const cakeSlice = createSlice({
     },
     restocked: (state, action: PayloadAction<number>) => {
       state.numOfCakes += action.payload;
+    },
+    multValue: (state, action: PayloadAction<number>) => {
+      state.numOfCakes *= action.payload;
+    },
+    multConst: (state, action: PayloadAction<number>) => {
+      state.numOfCakes *= action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(icecreamOrdered, (state) => {
+      state.numOfCakes--;
+    });
   }
 });
+
 export default cakeSlice.reducer;
-export const { ordered, restocked } = cakeSlice.actions;
+export const { ordered, restocked, multValue, multConst } = cakeSlice.actions;
