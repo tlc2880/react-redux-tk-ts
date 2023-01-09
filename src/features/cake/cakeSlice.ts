@@ -10,15 +10,23 @@ type InitialState = {
       objNumArr: number[];
       objWordArr: string[];
     };
+    count: {
+      wordCount: {};
+      objWordCount: {};
+    };
   };
   const initialState: InitialState = {
     numOfCakes: 0,
     numArr: [1, 2],
-    wordArr: ["One", "Two"],
+    wordArr: ["java", "world", "java", "code", "World", "Java"],
     obj: {
       objNumCakes: 0,
       objNumArr: [11, 22],
-      objWordArr: ["Five", "Six"]
+      objWordArr: ["One", "Two", "one", "two", "three", "onE"]
+    },
+    count: {
+      wordCount: {},
+      objWordCount: {}
     }
   };
   const cakeSlice = createSlice({
@@ -56,6 +64,29 @@ type InitialState = {
           ...state.obj.objNumArr,
           state.obj.objNumArr.length + 1
         ];
+      },
+      cntWord: (state) => {
+        const wordCount1: any = {};
+        for (const element of state.wordArr) {
+          let element1 = element.toLowerCase();
+          if (wordCount1[element1]) {
+            wordCount1[element1] += 1;
+          } else {
+            wordCount1[element1] = 1;
+          }
+        }
+        state.count.wordCount = wordCount1;
+  
+        const objWordCount1: any = {};
+        for (const element of state.obj.objWordArr) {
+          let element1 = element.toLowerCase();
+          if (objWordCount1[element1]) {
+            objWordCount1[element1] += 1;
+          } else {
+            objWordCount1[element1] = 1;
+          }
+        }
+        state.count.objWordCount = objWordCount1;
       }
     },
     extraReducers: (builder) => {
@@ -71,5 +102,7 @@ type InitialState = {
     restocked,
     addStrArr,
     multArr,
-    addArr
+    addArr,
+    cntWord
   } = cakeSlice.actions;
+  
