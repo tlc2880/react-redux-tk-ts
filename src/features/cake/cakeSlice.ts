@@ -3,9 +3,13 @@ import { ordered as icecreamOrdered } from "../icecream/icecreamSlice";
 /////////////////////////////////////////////////////
 type InitialState = {
   numOfCakes: number;
+  numArr: number[];
+  wordArr: string[];
 };
 const initialState: InitialState = {
-  numOfCakes: 20
+  numOfCakes: 20,
+  numArr: [1, 2],
+  wordArr: ["One", "Two"]
 };
 const cakeSlice = createSlice({
   name: "cake",
@@ -17,11 +21,18 @@ const cakeSlice = createSlice({
     restocked: (state, action: PayloadAction<number>) => {
       state.numOfCakes += action.payload;
     },
-    multValue: (state, action: PayloadAction<number>) => {
-      state.numOfCakes *= action.payload;
+    addStrArr: (state, action: PayloadAction<string>) => {
+      state.wordArr = [...state.wordArr, action.payload];
     },
-    multConst: (state, action: PayloadAction<number>) => {
-      state.numOfCakes *= action.payload;
+    multArr: (state, action: PayloadAction<number>) => {
+      let numArrTemp = [...state.numArr];
+      numArrTemp.forEach((item, index, arr) => {
+        arr[index] = item * action.payload;
+      });
+      state.numArr = numArrTemp;
+    },
+    addArr: (state) => {
+      state.numArr = [...state.numArr, state.numArr.length + 1];
     }
   },
   extraReducers: (builder) => {
@@ -32,4 +43,10 @@ const cakeSlice = createSlice({
 });
 
 export default cakeSlice.reducer;
-export const { ordered, restocked, multValue, multConst } = cakeSlice.actions;
+export const {
+  ordered,
+  restocked,
+  addStrArr,
+  multArr,
+  addArr
+} = cakeSlice.actions;
