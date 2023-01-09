@@ -8,6 +8,7 @@ export const CakeView = () => {
   const numOfCakes = useAppSelector((state) => state.cake.numOfCakes);
   const numArr = useAppSelector((state) => state.cake.numArr);
   const wordArr = useAppSelector((state) => state.cake.wordArr);
+  const obj = useAppSelector((state) => state.cake.obj);
   // const numOfIcecreams = useAppSelector(
   //   (state) => state.icecream.numOfIcecreams
   // );
@@ -17,6 +18,7 @@ export const CakeView = () => {
       <h4>Number of cakes: {numOfCakes}</h4>
       <h4>Number array: {JSON.stringify(numArr)}</h4>
       <h4>String array: {JSON.stringify(wordArr)}</h4>
+      <h4>Object: {JSON.stringify(obj)}</h4>
       <button onClick={() => dispatch(ordered())}>Order Cakes</button>
       <input
         type="number"
